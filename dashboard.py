@@ -38,46 +38,64 @@ st.markdown("""
         /* Improve touch targets */
         .stButton>button {
             width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
+            padding: 1rem;
+            font-size: 1.1rem;
         }
         
         .stSelectbox, .stSlider {
             width: 100%;
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
+            font-size: 1.1rem;
         }
         
         /* Optimize chart containers */
         .element-container {
             margin: 0.5rem 0;
+            width: 100%;
         }
         
         /* Make tabs more touch-friendly */
         .stTabs [data-baseweb="tab-list"] {
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         
         .stTabs [data-baseweb="tab"] {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            min-width: 120px;
         }
         
         /* Improve map responsiveness */
         .folium-map {
-            height: 400px !important;
+            height: 600px !important;
+            width: 100% !important;
         }
         
         /* Make headers more readable */
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
         }
         
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
         
         h3 {
-            font-size: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Improve chart readability */
+        .stPlotlyChart {
+            width: 100% !important;
+            height: 600px !important;
+        }
+        
+        /* Make data tables more mobile-friendly */
+        .stDataFrame {
+            width: 100%;
+            overflow-x: auto;
+            font-size: 0.9rem;
         }
     }
     
@@ -89,6 +107,10 @@ st.markdown("""
         
         .sidebar .sidebar-content {
             padding: 1rem;
+        }
+        
+        .stPlotlyChart {
+            height: 600px !important;
         }
     }
     
@@ -212,8 +234,12 @@ with tab1:
     )
     
     fig.update_geos(fitbounds="locations", visible=False)
-    fig.update_layout(height=500)  # Set fixed height for better mobile display
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(
+        height=600,
+        margin=dict(l=0, r=0, t=50, b=0),
+        font=dict(size=14)
+    )
+    st.plotly_chart(fig, use_container_width=True, config={'responsive': True})
 
 with tab2:
     st.header(f"{selected_crime} Trends Over Time")
@@ -229,8 +255,13 @@ with tab2:
         markers=True
     )
     
-    fig.update_layout(height=400)  # Set fixed height for better mobile display
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(
+        height=600,
+        margin=dict(l=0, r=0, t=50, b=0),
+        font=dict(size=14),
+        xaxis=dict(tickangle=45)
+    )
+    st.plotly_chart(fig, use_container_width=True, config={'responsive': True})
 
 with tab3:
     st.header("Crime Category Analysis")
@@ -248,8 +279,13 @@ with tab3:
         color='Category'
     )
     
-    fig.update_layout(height=400)  # Set fixed height for better mobile display
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(
+        height=600,
+        margin=dict(l=0, r=0, t=50, b=0),
+        font=dict(size=14),
+        xaxis=dict(tickangle=45)
+    )
+    st.plotly_chart(fig, use_container_width=True, config={'responsive': True})
 
 # Add footer with improved mobile layout
 st.markdown("---")
